@@ -16,15 +16,6 @@ router.get('/', function(req, res, next) {
   });
 });
 
-function saveData(notesdata) {
-    console.log(notesdata);
-    fs.writeFile(dataPath, JSON.stringify(notesdata), (err) => { 
-        if (err) 
-          console.log(err); 
-      }); 
-}
-
-
 //POST a new Note
 router.post('/', function(req, res, next) {
 
