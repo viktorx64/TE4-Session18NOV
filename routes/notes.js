@@ -32,23 +32,19 @@ router.post('/', function(req, res, next) {
     //fundera på JavaScript Object vs JSON som text, dvs vi har en Array med data
     //ta antalet poster och öka med 1
     //detta tal blir mitt nya id
-
-    //var notesdata; //= JSON.parse(fs.readFile(dataPath));
     var notesdata; 
         fs.readFile(dataPath, (err,data) =>{
             if(err) {
                 throw err;
             }
-            //console.log(JSON.parse(data));
-            notesdata = JSON.parse(data);
-            //console.log(notesdata);
+            var notesdata = JSON.parse(data);
             var newNotesId = Object.keys(notesdata).length + 1;
             notesdata[newNotesId] = JSON.parse(req.body.data);
             notesdata[newNotesId].id = newNotesId;
-            //console.log(notesdata);
-            //notesdata = notesdata
-            //fs.writeFile(dataPath, JSON.stringify(notesdata));
-            saveData(notesdata);
+            fs.writeFile(dataPath, JSON.stringify(notesdata), (err) => { 
+                if (err) 
+                  console.log(err); 
+              }); 
         });
     
     /*
