@@ -15,9 +15,16 @@ router.get('/', function(req, res, next) {
   });
 });
 
-
+//POST a new Note
 router.post('/', function(req, res, next) {
-    res.send(req.body.data);
+    fs.appendFile(dataPath, req.body.data, (err) =>{
+        if(err) {
+            throw err;
+        }
+
+        res.send("new note added");
+    });
+    
   });
 
 module.exports = router;
