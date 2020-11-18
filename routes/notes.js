@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs'); //filesystem
+const { resolve } = require('path');
 
 const dataPath = "./data/notes.json";
 
@@ -15,6 +16,15 @@ router.get('/', function(req, res, next) {
   });
 });
 
+function saveData(notesdata) {
+    console.log(notesdata);
+    fs.writeFile(dataPath, JSON.stringify(notesdata), (err) => { 
+        if (err) 
+          console.log(err); 
+      }); 
+}
+
+
 //POST a new Note
 router.post('/', function(req, res, next) {
 
@@ -23,8 +33,25 @@ router.post('/', function(req, res, next) {
     //ta antalet poster och öka med 1
     //detta tal blir mitt nya id
 
-    var notesdata; //= JSON.parse(fs.readFile(dataPath));
-
+    //var notesdata; //= JSON.parse(fs.readFile(dataPath));
+    var notesdata; 
+        fs.readFile(dataPath, (err,data) =>{
+            if(err) {
+                throw err;
+            }
+            //console.log(JSON.parse(data));
+            notesdata = JSON.parse(data);
+            //console.log(notesdata);
+            var newNotesId = Object.keys(notesdata).length + 1;
+            notesdata[newNotesId] = JSON.parse(req.body.data);
+            notesdata[newNotesId].id = newNotesId;
+            //console.log(notesdata);
+            //notesdata = notesdata
+            //fs.writeFile(dataPath, JSON.stringify(notesdata));
+            saveData(notesdata);
+        });
+    
+    /*
     fs.readFile(dataPath, (err,data) =>{
         if(err) {
             throw err;
@@ -34,15 +61,16 @@ router.post('/', function(req, res, next) {
         //console.log(notesdata);
         var newNotesId = Object.keys(notesdata).length + 1;
         notesdata[newNotesId] = req.body.data;
-        console.log(notesdata);
+        //console.log(notesdata);
         //fs.writeFile(dataPath, JSON.stringify(notesdata));
     });
+    */
 
     //vi FÖRVÄNTAR oss att nu är notesdata populerat med data
     //MEN så är inte fallet!!
     //funktionen ovan fortsätter jobba och vi hamnar hör direkt
     //INNAN något värde har populerats till notesdata
-    console.log(notesdata); //varför funkar inte detta????
+    //console.log(notesdata); //varför funkar inte detta????
 
     //console.log(notesdata[0].title);
 

@@ -1,12 +1,1 @@
-{
-    "1": {
-        "title": "AAAA",
-        "content": "Aaaaaaaaaaaaaaaaaaaa",
-        "id": 1
-    },
-    "2": {
-        "title":"BBB",
-        "content":"the brown fox jumped",
-        "id": 2
-    }
-}
+{"1":{"title":"AAAA","content":"Aaaaaaaaaaaaaaaaaaaa","id":1},"2":{"title":"BBB","content":"the brown fox jumped","id":2},"3":{"title":"förfan","content":"hilfe","id":3},"4":{"title":"förfan","content":"hilfe","id":4},"5":{"title":"förfan","content":"hilfe","id":5}}
