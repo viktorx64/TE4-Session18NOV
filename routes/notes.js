@@ -130,6 +130,7 @@ router.delete('/:id', function(req, res, next) {
         throw err;
     }
     NoteArrayForDel = JSON.parse(data);
+    NoteArrayForDel.slice(id, 0)
     //must complete this before i can splice
     //NoteArrayForDel.splice(id, 1);
   //give everything a new id
