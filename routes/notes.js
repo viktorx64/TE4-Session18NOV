@@ -5,7 +5,7 @@ const { resolve } = require('path');
 
 const dataPath = "./data/notes.json";
 
-const errorMsg = {
+const errorMsg = [
 	{
 		//getAll error = 0
 		"id" : 0,
@@ -29,8 +29,8 @@ const errorMsg = {
 		"id" : 3,
 		"code" : 400,
 		"description" : "Could not find note to edit"
-	}
-}
+  }
+];
 /* GET all Notes. */
 router.get('/', function(req, res, next) {
   fs.readFile(dataPath, (err,data) =>{
@@ -47,9 +47,9 @@ router.get('/', function(req, res, next) {
 //POST a new Note
 router.post('/', function(req, res, next) {
 
-    //jag vill läsa in hela "filen" och ta reda på hur många poster som finns
-    //fundera på JavaScript Object vs JSON som text, dvs vi har en Array med data
-    //ta antalet poster och öka med 1
+    //jag vill lï¿½sa in hela "filen" och ta reda pï¿½ hur mï¿½nga poster som finns
+    //fundera pï¿½ JavaScript Object vs JSON som text, dvs vi har en Array med data
+    //ta antalet poster och ï¿½ka med 1
     //detta tal blir mitt nya id
         fs.readFile(dataPath, (err,data) =>{
             if(err) {
@@ -61,13 +61,17 @@ router.post('/', function(req, res, next) {
             notesdata[newNotesId] = JSON.parse(req.body.data);
             notesdata[newNotesId].id = newNotesId;
             fs.writeFile(dataPath, JSON.stringify(notesdata), (err) => { 
-                if (err) 
+                if (err) { 
                   console.log(err);
-		  res.status(500).send("Could not write note[" + newNotesId + "] to file" );
+                  res.status(500).send("Could not write note[" + newNotesId + "] to file" );
+                }
+                else {
+                  res.status(200).send("added new note[" + newNotesId + "]");
+                }
               }); 
         });
     //vi FÃ–RVÃ„NTAR oss att nu Ã¤r notesdata populerat med data
-    //MEN så är inte fallet!!
+    //MEN sï¿½ ï¿½r inte fallet!!
     //funktionen ovan fortsÃ¤tter jobba och vi hamnar hÃ¶r direkt
     //INNAN nÃ¥got vÃ¤rde har populerats till notesdata
     //console.log(notesdata); //varfÃ¶r funkar inte detta????
@@ -75,5 +79,51 @@ router.post('/', function(req, res, next) {
     
     
   });
+
+/* GET  Note by id. */
+router.get('/:id', function(req, res, next) {
+  fs.readFile(dataPath, (err,data) =>{
+      if(err) {
+          throw err;
+      }
+      var id = req.params.id;
+      var notesdata = JSON.parse(data);
+
+      res.send(notesdata[id]);
+      //TODO: Hantera att endast giltiga ID funkar
+  });
+});
+
+router.put('/:id', function(req, res, next) {
+  var id = req.params.id;
+  var title = req.body.title;
+  var content = req.body.content;
+  var NoteArray;
+  fs.readFile(dataPath, (err,data) =>{
+    if(err) {
+        console.log(err);
+        throw err;
+    }
+    //change data
+    NoteArray = JSON.parse(data);
+    NoteArray[id].title = title;
+    NoteArray[id].content = content;
+    //save to file
+    fs.writeFile(dataPath, JSON.stringify(NoteArray), (err) => { 
+      if (err) { 
+        console.log(err);
+        res.status(500).send("Could not write note[" + id + "] to file" );
+      }
+      else {
+        res.status(200).send("changed note[" + id + "]");
+      }
+    }); 
+  });
+});
+
+router.delete('/:id', function(req, res, next) {
+  var id = req.params.id;
+
+});
 
 module.exports = router;
