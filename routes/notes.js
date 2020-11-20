@@ -123,7 +123,30 @@ router.put('/:id', function(req, res, next) {
 
 router.delete('/:id', function(req, res, next) {
   var id = req.params.id;
+  var NoteArrayForDel;
+  fs.readFile(dataPath, (err,data) =>{
+    if(err) {
+        console.log(err);
+        throw err;
+    }
+    NoteArrayForDel = JSON.parse(data);
+    //must complete this before i can splice
+    //NoteArrayForDel.splice(id, 1);
+  //give everything a new id
+    for (var i = 0; i < NoteArray.length; i++) {
+        NoteArray[i].id = i;
+    }
 
+    fs.writeFile(dataPath, JSON.stringify(NoteArray), (err) => { 
+      if (err) { 
+        console.log(err);
+        res.status(500).send("Could not delete[" + id + "]" );
+      }
+      else {
+        res.status(200).send("removed note[" + id + "]");
+      }
+    });
+  });
 });
 
 module.exports = router;
