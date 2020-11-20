@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
 
     //jag vill läsa in hela "filen" och ta reda på hur många poster som finns
-    //fundera på JavaScript Object vs JSON som text, dvs vi har en Array med data
+    //fundera p� JavaScript Object vs JSON som text, dvs vi har en Array med data
     //ta antalet poster och öka med 1
     //detta tal blir mitt nya id
         fs.readFile(dataPath, (err,data) =>{
@@ -37,7 +37,7 @@ router.post('/', function(req, res, next) {
               }); 
         });
     //vi FÖRVÄNTAR oss att nu är notesdata populerat med data
-    //MEN så är inte fallet!!
+    //MEN s� �r inte fallet!!
     //funktionen ovan fortsätter jobba och vi hamnar hör direkt
     //INNAN något värde har populerats till notesdata
     //console.log(notesdata); //varför funkar inte detta????
