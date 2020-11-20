@@ -130,7 +130,7 @@ router.delete('/:id', function(req, res, next) {
         throw err;
     }
     NoteArrayForDel = JSON.parse(data);
-    NoteArrayForDel.slice(id, 0)
+    //NoteArrayForDel.splice(id, 0)
     //must complete this before i can splice
     //NoteArrayForDel.splice(id, 1);
   //give everything a new id
@@ -138,15 +138,19 @@ router.delete('/:id', function(req, res, next) {
         NoteArray[i].id = i;
     }
 
-    fs.writeFile(dataPath, JSON.stringify(NoteArray), (err) => { 
-      if (err) { 
-        console.log(err);
-        res.status(500).send("Could not delete[" + id + "]" );
-      }
-      else {
-        res.status(200).send("removed note[" + id + "]");
-      }
-    });
+    
+  })
+  
+  NoteArrayForDel.splice(id, 0);
+
+  fs.writeFile(dataPath, JSON.stringify(NoteArrayForDel), (err) => { 
+    if (err) { 
+      console.log(err);
+      res.status(500).send("Could not delete[" + id + "]" );
+    }
+    else {
+      res.status(200).send("removed note[" + id + "]");
+    }
   });
 });
 
