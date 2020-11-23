@@ -134,14 +134,14 @@ router.delete('/:id', function(req, res, next) {
     //must complete this before i can splice
     //NoteArrayForDel.splice(id, 1);
   //give everything a new id
-    for (var i = 0; i < NoteArray.length; i++) {
-        NoteArray[i].id = i;
+    for (var i = 0; i < NoteArrayForDel.length; i++) {
+        NoteArrayForDel[i].id = i;
     }
 
     
   })
   
-  NoteArrayForDel.splice(id, 0);
+  NoteArrayForDel.splice(id, 1);
 
   fs.writeFile(dataPath, JSON.stringify(NoteArrayForDel), (err) => { 
     if (err) { 
