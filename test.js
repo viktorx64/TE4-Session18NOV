@@ -1,6 +1,6 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
-
+const chaiJson = require("chai-json");
 
 var should = require('chai').should()
 
@@ -14,7 +14,19 @@ const notesdata = {
 
 
 chai.use(chaiHttp);
+chai.use(chaiJson);
 
+describe("load notes", function() {
+	it("get all notes", function(done) {
+		chai.request(baseUrl)
+			.get("/notes")
+			.end(function(err, res) {
+				res.should.have.status(200);
+				res.body.should.be.a('Object');
+				done();
+		})
+	});
+});
 
 describe("get a note by id", function() {
 	it("get a Note", function(done){
