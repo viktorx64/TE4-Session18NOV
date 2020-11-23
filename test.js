@@ -6,9 +6,11 @@ var should = require('chai').should()
 
 const baseUrl = "http://localhost:3000";
 
+const titel = "HEEY";
+const content = "WHATS GOING OOOOOOOOOOOOOON"
 const notesdata = {
-	"title" : "HEY",
-	"content": "whats going on",
+	"title" : titel,
+	"content" : content,
 	"id": 1
 };
 
@@ -42,12 +44,23 @@ describe("load notes", function() {
 
 });
 
-describe("change Note", function() {
+describe("Update Notes", function() {
 	it("Change Note 1", function(done){
 		chai.request(baseUrl)
 			.put("/notes/" + notesdata.id)
 			.set('content-type', 'application/x-www-form-urlencoded')
-			.send({title: "HEY", content : "whats going on"})
+			.send({title: titel, content : content})
+			.end(function(err, res) {
+				res.should.have.status(200);
+				done();
+			})
+	});
+
+	it("Create note", function(done){
+		chai.request(baseUrl)
+			.post("/notes")
+			.set('content-type', 'application/x-www-form-urlencoded')
+			.send({data: JSON.stringify(notesdata)})
 			.end(function(err, res) {
 				res.should.have.status(200);
 				done();
@@ -55,3 +68,4 @@ describe("change Note", function() {
 	});
 
 });
+

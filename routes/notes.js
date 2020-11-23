@@ -57,6 +57,7 @@ router.post('/', function(req, res, next) {
                 throw err;
             }
             var notesdata = JSON.parse(data);
+            console.log(data);
             var newNotesId = Object.keys(notesdata).length + 1;
             notesdata[newNotesId] = JSON.parse(req.body.data);
             notesdata[newNotesId].id = newNotesId;
