@@ -115,6 +115,7 @@ router.put('/:id', function(req, res, next) {
         res.status(500).send("Could not write note[" + id + "] to file" );
       }
       else {
+        res.setHeader('content-type', 'text/plain');
         res.status(200).send("changed note[" + id + "]");
       }
     }); 

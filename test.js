@@ -26,10 +26,8 @@ describe("load notes", function() {
 				done();
 		})
 	});
-});
-
-describe("get a note by id", function() {
-	it("get a Note", function(done){
+	//load specific
+	it("get a specific Note", function(done){
 		chai.request(baseUrl)
 			.get("/notes/" + notesdata.id)
 			.end(function(err, res) {
@@ -44,3 +42,16 @@ describe("get a note by id", function() {
 
 });
 
+describe("change Note", function() {
+	it("Change Note 1", function(done){
+		chai.request(baseUrl)
+			.put("/notes/" + notesdata.id)
+			.set('content-type', 'application/x-www-form-urlencoded')
+			.send({title: "HEY", content : "whats going on"})
+			.end(function(err, res) {
+				res.should.have.status(200);
+				done();
+			})
+	});
+
+});

@@ -1,3 +1,1 @@
-{"1":{"title" : "HEY",
-	"content": "whats going on",
-	"id": 1},"2":{"title":"BBB","content":"the brown fox jumped","id":2},"3":{"title":"Ibland är jag msart","content":"men oftast inte","id":3},"4":{"title":"noice","content":"automagick","id":4}}
+{"1":{"title":"HEY","content":"whats going on","id":1},"2":{"title":"HEY","id":2,"content":"whats going on"},"3":{"title":"Ibland är jag msart","content":"men oftast inte","id":3},"4":{"title":"noice","content":"automagick","id":4}}
